@@ -41,8 +41,8 @@ jobs:
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: appspringboot
-        environment_name: Appspringboot-env
+        application_name: devopsspringboot
+        environment_name: Devopsspringboot-env
         version_label: ${{ github.SHA }}-${{ github.run_number }}
         region: ap-south-1b
         deployment_package: s3://applicationspringboot/sample-0.0.1-SNAPSHOT.jar
