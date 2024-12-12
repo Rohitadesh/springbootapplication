@@ -34,7 +34,7 @@ jobs:
       run: aws s3 cp target/sample-0.0.1-SNAPSHOT.jar s3://applicationspringboot/sample-0.0.1-SNAPSHOT.jar
 
     - name: Verify S3 Upload
-      run: aws s3 ls s3://applicationspringboot/
+      run: aws s3 ls s3://applicationspringboot/sample-0.0.1-SNAPSHOT.jar
 
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v13
