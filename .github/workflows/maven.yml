@@ -44,5 +44,5 @@ jobs:
         application_name: devopsspringboot
         environment_name: Devopsspringboot-env
         version_label: ${{ github.SHA }}-${{ github.run_number }}
-        region: ap-south-1b
+        region: ap-south-1
         deployment_package: s3://applicationspringboot/sample-0.0.1-SNAPSHOT.jar
