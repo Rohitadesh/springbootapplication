@@ -11,7 +11,7 @@ public class SampleApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SampleApplication.class, args);
 	}
-	  @GetMapping("/")
+	  @GetMapping("/health")
    	 public String health(){
         return "Service is fine";
     }
