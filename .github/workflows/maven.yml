@@ -11,31 +11,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    
     - name: Set up JDK 21
       uses: actions/setup-java@v1
       with:
         java-version: "21"
-
     - name: Build with Maven
-      run: mvn -B package --file pom.xml -Djar.finalName=sample-0.0.1-SNAPSHOT
-
+      run: mvn -B package --file pom.xml -Djar.finalName=sample-${{ github.run_number }}  # Add github.run_number
     - name: Verify Build Artifacts
       run: ls -l target/
-
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-south-1 
-
     - name: Upload to S3
-      run: aws s3 cp target/sample-0.0.1-SNAPSHOT.jar s3://applicationspringboot/sample-0.0.1-SNAPSHOT.jar
-
+      run: aws s3 cp target/sample-${{ github.run_number }}.jar s3://applicationspringboot/sample-${{ github.run_number }}.jar  # Use unique key
     - name: Verify S3 Upload
-      run: aws s3 ls s3://applicationspringboot/sample-0.0.1-SNAPSHOT.jar
-
+      run: aws s3 ls s3://applicationspringboot/
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v13
       with:
@@ -43,6 +36,6 @@ jobs:
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         application_name: devopsboot
         environment_name: Devopsboot-env
-        version_label: ${{github.SHA}}
+        version_label: sample-${{ github.run_number }}  # Use unique version label
         region: ap-south-1
-        deployment_package: s3://applicationspringboot/sample-0.0.1-SNAPSHOT.jar
+        deployment_package: s3://applicationspringboot/sample-${{ github.run_number }}.jar  # Use unique key
