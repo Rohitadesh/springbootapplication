@@ -3,16 +3,18 @@ package com.project.sample;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
-@RestController
-@RequestMapping("/api")
+
 @SpringBootApplication
+@RestController  // [Change 1] Moved @RestController annotation here for readability
+@RequestMapping("/api")
 public class SampleApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SampleApplication.class, args);
-	}
-	  @GetMapping("/health")
-   	 public String health(){
-        return "Service is fine";
+    public static void main(String[] args) {
+        SpringApplication.run(SampleApplication.class, args);
+    }
+
+    @GetMapping("/health")
+    public String health() {
+        return "Service is fine";  // [Change 2] No functional change, just highlighting the endpoint
     }
 }
